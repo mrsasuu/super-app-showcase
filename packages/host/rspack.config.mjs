@@ -1,8 +1,9 @@
 import path from 'node:path';
-import {fileURLToPath} from 'node:url';
+import { fileURLToPath } from 'node:url';
 import * as Repack from '@callstack/repack';
 import rspack from '@rspack/core';
-import {getSharedDependencies} from 'super-app-showcase-sdk';
+import { getSharedDependencies } from 'super-app-showcase-sdk';
+import { withZephyr } from 'zephyr-repack-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,8 +15,8 @@ const __dirname = path.dirname(__filename);
  * Learn about Re.Pack configuration: https://re-pack.dev/docs/guides/configuration
  */
 
-export default env => {
-  const {mode, platform = process.env.PLATFORM} = env;
+export default withZephyr()(env => {
+  const { mode, platform = process.env.PLATFORM } = env;
 
   return {
     mode,
@@ -48,7 +49,7 @@ export default env => {
           auth: `auth@http://localhost:9003/${platform}/mf-manifest.json`,
           news: `news@http://localhost:9004/${platform}/mf-manifest.json`,
         },
-        shared: getSharedDependencies({eager: true}),
+        shared: getSharedDependencies({ eager: true }),
       }),
       // silence missing @react-native-masked-view optionally required by @react-navigation/elements
       new rspack.IgnorePlugin({

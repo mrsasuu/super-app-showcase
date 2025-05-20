@@ -21,9 +21,9 @@ import products from '../data/products.json';
 
 const showNotImplementedAlert = () => Alert.alert('Not implemented yet');
 
-const renderProduct: ListRenderItem<any> = ({item, index}) => (
+const renderProduct: ListRenderItem<any> = ({ item, index }) => (
   <Card mode="contained" style={styles.cardWidth}>
-    <Card.Cover source={{uri: `${item.image}?${index}`}} />
+    <Card.Cover source={{ uri: `${item.image}?${index}` }} />
     <Card.Content>
       <Title>{`${item.name} • $${item.price}`}</Title>
       <Paragraph numberOfLines={1}>{item.description}</Paragraph>
@@ -38,7 +38,7 @@ const renderProduct: ListRenderItem<any> = ({item, index}) => (
 const renderSliderItem = () => {
   return (
     <Image
-      source={{uri: 'https://picsum.photos/600?a'}}
+      source={{ uri: 'https://picsum.photos/600?a' }}
       style={styles.sliderItem}
     />
   );
@@ -60,7 +60,7 @@ const HomeScreen = () => {
       />
       <View style={styles.header}>
         <Text variant="titleLarge" style={styles.headerTitle}>
-          Featured Products
+          Featured Products hey
         </Text>
         <Button mode="contained-tonal" onPress={showNotImplementedAlert}>
           See All
@@ -110,7 +110,7 @@ const HomeScreen = () => {
   );
 };
 
-const {width: sliderItemWidth} = Dimensions.get('screen');
+const { width: sliderItemWidth } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {

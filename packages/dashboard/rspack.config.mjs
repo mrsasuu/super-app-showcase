@@ -1,8 +1,10 @@
 import path from 'node:path';
-import {fileURLToPath} from 'node:url';
+import { fileURLToPath } from 'node:url';
 import * as Repack from '@callstack/repack';
 import rspack from '@rspack/core';
-import {getSharedDependencies} from 'super-app-showcase-sdk';
+import { getSharedDependencies } from 'super-app-showcase-sdk';
+import { withZephyr } from 'zephyr-repack-plugin';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,8 +18,8 @@ const STANDALONE = Boolean(process.env.STANDALONE);
  * Learn about Re.Pack configuration: https://re-pack.dev/docs/guides/configuration
  */
 
-export default env => {
-  const {mode, platform} = env;
+export default withZephyr()(env => {
+  const { mode, platform } = env;
 
   return {
     mode,
@@ -35,7 +37,7 @@ export default env => {
     module: {
       rules: [
         ...Repack.getJsTransformRules(),
-        ...Repack.getAssetTransformRules({inline: !STANDALONE}),
+        ...Repack.getAssetTransformRules({ inline: !STANDALONE }),
       ],
     },
     plugins: [
@@ -46,15 +48,11 @@ export default env => {
         dts: false,
         exposes: STANDALONE
           ? undefined
-          : {'./App': './src/navigation/MainNavigator'},
+          : { './App': './src/navigation/MainNavigator' },
         remotes: {
           auth: `auth@http://localhost:9003/${platform}/mf-manifest.json`,
         },
-        shared: getSharedDependencies({eager: STANDALONE}),
-      }),
-      new Repack.plugins.CodeSigningPlugin({
-        enabled: mode === 'production',
-        privateKeyPath: path.join('..', '..', 'code-signing.pem'),
+        shared: getSharedDependencies({ eager: STANDALONE }),
       }),
       // silence missing @react-native-masked-view optionally required by @react-navigation/elements
       new rspack.IgnorePlugin({
@@ -62,4 +60,4 @@ export default env => {
       }),
     ],
   };
-};
+});

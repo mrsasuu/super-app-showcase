@@ -1,0 +1,13 @@
+procs:
+  Auth:
+    shell: pnpm --filter auth bundle
+    stop: SIGKILL
+  Booking:
+    shell: pnpm --filter booking bundle
+    stop: SIGKILL
+  Dashboard:
+    shell: pnpm --filter dashboard bundle
+    stop: SIGKILL
+  Shopping:
+    shell: pnpm --filter shopping bundle
+    stop: SIGKILL

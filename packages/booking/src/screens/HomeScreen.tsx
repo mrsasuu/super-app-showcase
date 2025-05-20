@@ -7,12 +7,12 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {CompositeScreenProps} from '@react-navigation/native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {NativeBottomTabScreenProps} from '@bottom-tabs/react-navigation';
-import {Avatar, Card, Button, Divider, Text} from 'react-native-paper';
-import {TabsParamList} from '../navigation/TabsNavigator';
-import {HomeStackParamList} from '../navigation/HomeNavigator';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeBottomTabScreenProps } from '@bottom-tabs/react-navigation';
+import { Avatar, Card, Button, Divider, Text } from 'react-native-paper';
+import { TabsParamList } from '../navigation/TabsNavigator';
+import { HomeStackParamList } from '../navigation/HomeNavigator';
 import upcomingBookings from '../data/upcomingBookings.json';
 import recentBookings from '../data/recentBookings.json';
 import featuredServices from '../data/featuredServices.json';
@@ -22,7 +22,7 @@ type Props = CompositeScreenProps<
   NativeBottomTabScreenProps<TabsParamList, 'HomeNavigator'>
 >;
 
-const renderAppointment = ({item}: any) => (
+const renderAppointment = ({ item }: any) => (
   <Card mode="contained">
     <Card.Title
       titleVariant="titleMedium"
@@ -32,19 +32,19 @@ const renderAppointment = ({item}: any) => (
       left={props => <Avatar.Icon {...props} icon="calendar" />}
     />
     <Card.Actions>
-      <Button mode="text" onPress={() => {}}>
+      <Button mode="text" onPress={() => { }}>
         Cancel
       </Button>
-      <Button mode="contained" onPress={() => {}}>
+      <Button mode="contained" onPress={() => { }}>
         Reschedule
       </Button>
     </Card.Actions>
   </Card>
 );
 
-const renderService: ListRenderItem<any> = ({item, index}) => (
+const renderService: ListRenderItem<any> = ({ item, index }) => (
   <Card mode="contained">
-    <Card.Cover source={{uri: `${item.image}?${index}`}} />
+    <Card.Cover source={{ uri: `${item.image}?${index}` }} />
     <Card.Title
       titleVariant="titleMedium"
       subtitleVariant="bodyMedium"
@@ -56,14 +56,14 @@ const renderService: ListRenderItem<any> = ({item, index}) => (
 
 const renderDivider = () => <Divider style={styles.divider} />;
 
-const HomeScreen = ({navigation}: Props) => {
+const HomeScreen = ({ navigation }: Props) => {
   return (
     <ScrollView
       style={styles.container}
       contentInsetAdjustmentBehavior="automatic">
       <View style={styles.header}>
         <Text variant="titleLarge" style={styles.headerTitle}>
-          Featured Services
+          Featured Services hey :)
         </Text>
         <Button
           mode="contained-tonal"

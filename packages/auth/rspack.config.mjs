@@ -1,8 +1,10 @@
 import path from 'node:path';
-import {fileURLToPath} from 'node:url';
+import { fileURLToPath } from 'node:url';
 import * as Repack from '@callstack/repack';
 import rspack from '@rspack/core';
-import {getSharedDependencies} from 'super-app-showcase-sdk';
+import { getSharedDependencies } from 'super-app-showcase-sdk';
+import { withZephyr } from 'zephyr-repack-plugin';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,8 +16,8 @@ const __dirname = path.dirname(__filename);
  * Learn about Re.Pack configuration: https://re-pack.dev/docs/guides/configuration
  */
 
-export default env => {
-  const {mode} = env;
+export default withZephyr()(env => {
+  const { mode } = env;
 
   return {
     mode,
@@ -33,7 +35,7 @@ export default env => {
     module: {
       rules: [
         ...Repack.getJsTransformRules(),
-        ...Repack.getAssetTransformRules({inline: true}),
+        ...Repack.getAssetTransformRules({ inline: true }),
       ],
     },
     plugins: [
@@ -47,11 +49,7 @@ export default env => {
           './SignInScreen': './src/screens/SignInScreen',
           './AuthProvider': './src/providers/AuthProvider',
         },
-        shared: getSharedDependencies({eager: false}),
-      }),
-      new Repack.plugins.CodeSigningPlugin({
-        enabled: mode === 'production',
-        privateKeyPath: path.join('..', '..', 'code-signing.pem'),
+        shared: getSharedDependencies({ eager: false }),
       }),
       // silence missing @react-native-masked-view optionally required by @react-navigation/elements
       new rspack.IgnorePlugin({
@@ -59,4 +57,4 @@ export default env => {
       }),
     ],
   };
-};
+});
